@@ -5,6 +5,8 @@ import java.util.Scanner;
 
 import client.*;
 import metier.*;
+import outils.Adresse;
+import outils.Date;
 import app.*;
 
 public class Main {
@@ -15,11 +17,28 @@ public class Main {
 
 		Scanner scanner = new Scanner(System.in);
 		boolean saisieTermine = false;
+		Agence currentAgence;
+		
+		//// TEST DEBUG ///
+		Adresse adresseDebug = new Adresse("22", "rue des gros Gérards", "59250", "Quelquepart");
+		Agence agenceDebug = new Agence("5454", "Chez Gérard bank", adresseDebug);
+		
+		Client clientDebug = new Client("Gérard", "Gérard", new Date("22","04","1965"), adresseDebug, "gerard@hotmail.fr", true);
+		agenceDebug.getListeClient().add(clientDebug);
+		ComptePEL Pel1 = new ComptePEL(agenceDebug, clientDebug , 0, false);
+		App.creerCompte(agenceDebug, clientDebug, scanner);
+
+		
+		currentAgence = agenceDebug;
+		clientDebug.setPEL(Pel1);
+				
+		//// TEST DEBUG ///
 		
 		// Debut de la boucle de saisie
 		
 		do {
 			MenuPrincipal.afficher();
+			
 			
 			
 			switch (scanner.nextInt()) {
@@ -32,13 +51,13 @@ public class Main {
 				break;
 			case 2:
 				//// TODO : Selectionner l'agence à qui rajouter un client (Agence currentAgence ? ---> Menu Agence ?)
-				App.creerClient(listeAgences.get(0), scanner);
+				App.creerClient(currentAgence, scanner);
 				System.out.println("Nouveau client crée :");
-				System.out.println(listeAgences.get(0).getListeClient().get(0).toString());
+				System.out.println(currentAgence.getListeClient().get(0).toString());
 				
 				break;
 			case 3:
-				App.creerCompte(listeAgences.get(0),listeAgences.get(0).getListeClient().get(0), scanner);
+				App.creerCompte(currentAgence, currentAgence.getListeClient().get(0), scanner);
 				
 				break;
 			case 4:
@@ -49,11 +68,11 @@ public class Main {
 				
 				break;
 			case 6:
-				App.afficherListeClient();
+				App.afficherListeClient(currentAgence);
 				
 				break;
 			case 7:
-				App.imprimerInfosClient();
+				App.imprimerInfosClient(currentAgence);
 				
 				break;
 				/// Quitte l'app

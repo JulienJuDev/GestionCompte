@@ -1,19 +1,20 @@
 package metier;
 
 import client.Client;
+import outils.Outils;
 
 public abstract class CompteBancaire {
 
-	protected String id;
+	protected String id = Outils.genererNumericalId(11);
 	protected Agence agence;
 	protected Client client;
 	protected float solde;
 	protected boolean decouvertAutorise;
 	protected boolean estActif = true;
 
-	public CompteBancaire(String id, Agence agence, Client client, float solde, boolean decouvertAutorise) {
-		this.id = id;
-		agence = agence;
+	public CompteBancaire(Agence agence, Client client, float solde, boolean decouvertAutorise) {
+		
+		this.agence = agence;
 		this.client = client;
 		this.solde = solde;
 		this.decouvertAutorise = decouvertAutorise;

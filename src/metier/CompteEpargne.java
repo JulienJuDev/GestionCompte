@@ -6,8 +6,8 @@ public class CompteEpargne extends CompteBancaire {
 
 	protected float coeff;
 	
-	public CompteEpargne(String id, Agence agence, Client client, float solde, boolean decouvertAutorise) {
-		super(id, agence, client, solde, decouvertAutorise);
+	public CompteEpargne(Agence agence, Client client, float solde, boolean decouvertAutorise) {
+		super(agence, client, solde, decouvertAutorise);
 
 	}
 	

@@ -1,5 +1,6 @@
 package client;
 
+import metier.CompteBancaire;
 import metier.CompteCourant;
 import metier.CompteLivretA;
 import metier.ComptePEL;
@@ -7,7 +8,7 @@ import outils.*;
 
 public class Client {
 
-	private String id;
+	private String id = Outils.genererIdClient();
 	private String nom;
 	private String prenom;
 	private Date dateDeNaissance;
@@ -18,10 +19,10 @@ public class Client {
 	private CompteLivretA LivretA;
 	private ComptePEL PEL;
 
-	public Client(String id, String nom, String prenom, Date dateDeNaissance, Adresse adresse, String email,
+	public Client(String nom, String prenom, Date dateDeNaissance, Adresse adresse, String email,
 			boolean estActif) {
 
-		this.id = id;
+		
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateDeNaissance = dateDeNaissance;
@@ -80,9 +81,6 @@ public class Client {
 		return compteCourant;
 	}
 
-	public void setCompteCourant(CompteCourant compteCourant) {
-		this.compteCourant = compteCourant;
-	}
 
 	public CompteLivretA getLivretA() {
 		return LivretA;
@@ -98,6 +96,10 @@ public class Client {
 
 	public void setPEL(ComptePEL pEL) {
 		PEL = pEL;
+	}
+
+	public void setCompteCourant(CompteCourant compteCourant) {
+		this.compteCourant = compteCourant;
 	}
 
 }
