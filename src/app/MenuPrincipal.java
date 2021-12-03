@@ -1,5 +1,7 @@
 package app;
 
+import metier.Agence;
+
 public class MenuPrincipal extends Menu {
 	
 	static String titre = "Menu Principal";
@@ -14,11 +16,14 @@ public class MenuPrincipal extends Menu {
 		"8. Quitter"		
 	};
 	
-	public static void afficher() {
+	public static void afficher(Agence agence) {
 		
 		System.out.println("--------------");
 		System.out.println(titre);
+		System.out.println(agence.toString());
 		System.out.println("--------------");
+		
+		
 		
 		for (String options : options) {
 			System.out.println(options);

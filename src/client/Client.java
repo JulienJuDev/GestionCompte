@@ -37,7 +37,6 @@ public class Client {
 		this.adresse = new Adresse();
 		this.email = this.nom + this.prenom + "@gmail.com";
 		
-		
 	}
 
 	public CompteBancaire[] getListeComptes() {
@@ -46,7 +45,7 @@ public class Client {
 
 	public void ajouterCompte(int indice, CompteBancaire compte) {
 		this.listeComptes[indice] = compte;
-		this.nbDeComptes++;
+		
 	}
 	
 	@Override

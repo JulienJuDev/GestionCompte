@@ -12,7 +12,7 @@ public class RandomNameTable {
 			
 	////Table for Random Bank Constructor
 	public static String[] tableBankPrefix = {"Banque", "Crédit", "Mutuelle", "Fonds"};
-	public static String[] tableBankMiddleName= {"Vautours", "Raquette", "Evasion", "Lezennes", "Pognon", "Moula"};
+	public static String[] tableBankMiddleName= {"Vautours", "Raquette", "Evasion", "Pognon", "Moula"};
 	public static String[] tableBankSuffix= {"et fils","et associés", "coopératif", "agricole", "populaire"};
 	
 }
