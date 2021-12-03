@@ -20,25 +20,25 @@ public class Main {
 		Agence currentAgence;
 		
 		//// TEST DEBUG ///
-		Adresse adresseDebug = new Adresse("22", "rue des gros Gérards", "59250", "Quelquepart");
-		Agence agenceDebug = new Agence("5454", "Chez Gérard bank", adresseDebug);
+		Agence agenceDebug = new Agence();
+		Client clientDebug1 = new Client();
+		Client clientDebug2 = new Client();
+		Client clientDebug3 = new Client();
 		
-		Client clientDebug = new Client("Gérard", "Gérard", new Date("22","04","1965"), adresseDebug, "gerard@hotmail.fr", true);
-		agenceDebug.getListeClient().add(clientDebug);
-		ComptePEL Pel1 = new ComptePEL(agenceDebug, clientDebug , 0, false);
-		App.creerCompte(agenceDebug, clientDebug, scanner);
-
+		agenceDebug.getListeClient().add(clientDebug1);
+		agenceDebug.getListeClient().add(clientDebug2);
+		agenceDebug.getListeClient().add(clientDebug3);
 		
 		currentAgence = agenceDebug;
-		clientDebug.setPEL(Pel1);
+		
 				
 		//// TEST DEBUG ///
 		
 		// Debut de la boucle de saisie
 		
 		do {
-			MenuPrincipal.afficher();
 			
+			MenuPrincipal.afficher();
 			
 			
 			switch (scanner.nextInt()) {

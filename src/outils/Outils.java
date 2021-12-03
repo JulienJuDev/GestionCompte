@@ -1,24 +1,22 @@
 package outils;
 
-import java.awt.font.NumericShaper;
 import java.util.Random;
 
-import metier.CompteBancaire;
 
 public class Outils {
 	
-	static String lettersString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
-	static String numericsString = "0123456789";
-	
 	public static int getRandomNumberInRange(int min, int max) {
-
+		
 		if (min >= max) {
 			throw new IllegalArgumentException("max must be greater than min");
 		}
-
+		
 		Random r = new Random();
 		return r.nextInt((max - min) + 1) + min;
 	}
+	
+	static String lettersString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	static String numericsString = "0123456789";
 		
 	public static String genererNumericalId(int n) {
 		String result = "";

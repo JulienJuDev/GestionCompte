@@ -61,4 +61,13 @@ public abstract class CompteBancaire {
 		return estActif;
 	}
 
+	@Override
+	public String toString() {
+		return  id + ", agence " + agence + "\n" +
+				client + "\n" +
+				"solde :" + solde;
+				
+	}
+
+	
 }

@@ -17,7 +17,7 @@ public class App {
 		System.out.println("Numéro d'identification");
 		String id = scanner.next();
 
-		return new Agence(id, nom, adresse);
+		return new Agence(nom, adresse);
 	}
 
 	public static void creerClient(Agence agence, Scanner scanner) {
@@ -46,21 +46,28 @@ public class App {
 		switch (scanner.nextInt()) {
 		case 1:
 
-			agence.getListeComptes().add(new CompteCourant(agence, client, 0f, false));
+			client.ajouterCompte(client.getNbDeComptes(), new CompteCourant(agence, client, 0f, false));
+			agence.getListeComptes().add(client.getListeComptes()[client.getNbDeComptes()]);
 
-			System.out.println("Vous avez déja un compte courant.");
+			System.out.println("Vous avez ouvert le compte courant : "
+					+ client.getListeComptes()[client.getNbDeComptes() - 1].toString());
+
 			break;
 		case 2:
 
-			agence.getListeComptes().add(new CompteLivretA(agence, client, 0f, false));
+			client.ajouterCompte(client.getNbDeComptes(), new CompteLivretA(agence, client, 0f, false));
+			agence.getListeComptes().add(client.getListeComptes()[client.getNbDeComptes()]);
 
-			System.out.println("Vous avez déja un Livret A.");
+			System.out.println("Vous avez ouvert le Livret A : "
+					+ client.getListeComptes()[client.getNbDeComptes() - 1].toString());
 			break;
 		case 3:
 
+			client.ajouterCompte(client.getNbDeComptes(), new ComptePEL(agence, client, 0f, false));
 			agence.getListeComptes().add(new ComptePEL(agence, client, 0f, false));
 
-			System.out.println("Vous avez déja un Plan d'épargne Logement.");
+			System.out.println(
+					"Vous avez ouvert le PEL : " + client.getListeComptes()[client.getNbDeComptes() - 1].toString());
 			break;
 		default:
 
@@ -77,14 +84,24 @@ public class App {
 
 		for (Client client : agence.getListeClient()) {
 			System.out.println(client.toString());
-			
+			System.out.println();
+
 		}
 	}
 
-	public static void afficherListeCompte(Agence agence) {
+	public static void afficherComptesAgence(Agence agence) {
 
 		for (CompteBancaire compte : agence.getListeComptes()) {
 			System.out.println(compte.toString());
+		}
+	}
+
+	public static void afficherComptesClient(Client client) {
+
+		for (CompteBancaire compte : client.getListeComptes()) {
+			if (compte != null) {
+				System.out.println(compte.toString());
+			}
 		}
 	}
 

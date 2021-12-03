@@ -1,9 +1,6 @@
 package client;
 
 import metier.CompteBancaire;
-import metier.CompteCourant;
-import metier.CompteLivretA;
-import metier.ComptePEL;
 import outils.*;
 
 public class Client {
@@ -12,29 +9,53 @@ public class Client {
 	private String nom;
 	private String prenom;
 	private Date dateDeNaissance;
+	private int nbDeComptes = 0;
+
 	private Adresse adresse;
 	private String email;
-	boolean estActif;
-	private CompteCourant compteCourant;
-	private CompteLivretA LivretA;
-	private ComptePEL PEL;
+	boolean estActif = true;
+	private CompteBancaire[] listeComptes = new CompteBancaire[3];
 
 	public Client(String nom, String prenom, Date dateDeNaissance, Adresse adresse, String email,
 			boolean estActif) {
-
 		
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateDeNaissance = dateDeNaissance;
 		this.adresse = adresse;
 		this.email = email;
-		this.estActif = estActif;
+	}
+	//// Generer un Client Random
+	public Client() {
+		this.nom = RandomNameTable.tableNom[Outils.getRandomNumberInRange(0, RandomNameTable.tableNom.length - 1)];
+		this.prenom = RandomNameTable.tablePrenom[Outils.getRandomNumberInRange(0, RandomNameTable.tablePrenom.length - 1)];
+		this.dateDeNaissance = new Date(
+				String.valueOf(Outils.getRandomNumberInRange(1, 30)),
+				String.valueOf(Outils.getRandomNumberInRange(0, 12)), 
+				String.valueOf(Outils.getRandomNumberInRange(1950,2002))
+				);
+		this.adresse = new Adresse();
+		this.email = this.nom + this.prenom + "@gmail.com";
+		
+		
 	}
 
+	public CompteBancaire[] getListeComptes() {
+		return listeComptes;
+	}
+
+	public void ajouterCompte(int indice, CompteBancaire compte) {
+		this.listeComptes[indice] = compte;
+		this.nbDeComptes++;
+	}
+	
 	@Override
 	public String toString() {
-		return "Client [id=" + id + ", nom=" + nom + ", prenom=" + prenom + ", dateDeNaissance=" + dateDeNaissance
-				+ ", adresse=" + adresse + ", email=" + email + ", estActif=" + estActif + "]";
+		return 	"Client #" + id + "\n" +
+				nom + " " +  prenom + "\n" +
+				"Né le " + dateDeNaissance + "\n" +
+				adresse.toString() + "\n" +
+				email;
 	}
 
 	public Adresse getAdresse() {
@@ -76,30 +97,11 @@ public class Client {
 	public Date getDateDeNaissance() {
 		return dateDeNaissance;
 	}
-
-	public CompteCourant getCompteCourant() {
-		return compteCourant;
+	public int getNbDeComptes() {
+		return nbDeComptes;
 	}
 
-
-	public CompteLivretA getLivretA() {
-		return LivretA;
+	public void setNbDeComptes(int nbDeComptes) {
+		this.nbDeComptes = nbDeComptes;
 	}
-
-	public void setLivretA(CompteLivretA livretA) {
-		LivretA = livretA;
-	}
-
-	public ComptePEL getPEL() {
-		return PEL;
-	}
-
-	public void setPEL(ComptePEL pEL) {
-		PEL = pEL;
-	}
-
-	public void setCompteCourant(CompteCourant compteCourant) {
-		this.compteCourant = compteCourant;
-	}
-
 }

@@ -13,10 +13,18 @@ public class Adresse {
 		this.codePostal = codePostal;
 		this.ville = ville;
 	}
+	
+	/// Adresse() Genere une adresse Randomisée
+	public Adresse() {
+		this.numero = String.valueOf(Outils.getRandomNumberInRange(0, 200));
+		this.libelle = RandomNameTable.tableRue[Outils.getRandomNumberInRange(0, RandomNameTable.tableRue.length - 1)];
+		this.codePostal = Outils.genererNumericalId(5);
+		this.ville = RandomNameTable.tableVille[Outils.getRandomNumberInRange(0, RandomNameTable.tableVille.length - 1)];
+	}
 
 	@Override
 	public String toString() {
-		return "Adresse : " + numero + ", " + libelle + ", " + codePostal + ", " + ville;
+		return numero + " " + libelle + ", " + codePostal + ", " + ville;
 	}
 
 	
