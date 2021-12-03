@@ -63,9 +63,10 @@ public abstract class CompteBancaire {
 
 	@Override
 	public String toString() {
-		return  id + ", agence " + agence + "\n" +
+		return  "Compte numero #" + id + "\n" +
+				agence + 
 				client + "\n" +
-				"solde :" + solde;
+				"solde : " + solde;
 				
 	}
 

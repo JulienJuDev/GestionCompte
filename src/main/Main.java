@@ -81,6 +81,7 @@ public class Main {
 				
 				break;
 			case "3":
+				
 				App.creerCompte(currentAgence, currentAgence.getListeClient().get(0), scanner);
 				
 				break;
@@ -99,7 +100,11 @@ public class Main {
 				
 				break;
 			case "7":
-				App.imprimerInfosClient(currentAgence);
+				System.out.println("Rentrez un nom, un identifiant ou un numero de compte du client");
+				System.out.println();
+				//System.out.println(App.creerFicheClient(currentAgence, scanner.next()).toString());
+				bufferedWritter.append(App.creerFicheClient(currentAgence, scanner.next()).toString());
+				bufferedWritter.flush();
 				
 				break;
 				/// Quitte l'app
