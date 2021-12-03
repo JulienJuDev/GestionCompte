@@ -8,14 +8,16 @@ import outils.*;
 
 public class App {
 
+	private static Agence currentAgence;
+	
 	public static Agence creerFakeAgence() {
 
 		return new Agence();
 	}
 
-	public static void creerFakeClient(Agence agence) {
+	public static void creerFakeClient() {
 
-		agence.getListeClient().add(new Client());
+		currentAgence.getListeClient().add(new Client());
 	}
 
 	public static Agence creerAgence(Scanner scanner) {
@@ -30,7 +32,7 @@ public class App {
 		return new Agence(nom, adresse);
 	}
 
-	public static void creerClient(Agence agence, Scanner scanner) {
+	public static void creerClient(Scanner scanner) {
 
 		System.out.println("Nom");
 		String nom = scanner.next();
@@ -43,10 +45,10 @@ public class App {
 		System.out.println("email");
 		String email = scanner.next();
 
-		agence.getListeClient().add(new Client(nom, prenom, dateNaissance, adresse, email, true));
+		currentAgence.getListeClient().add(new Client(nom, prenom, dateNaissance, adresse, email, true));
 	}
 
-	public static void creerCompte(Agence agence, Client client, Scanner scanner) {
+	public static void creerCompte(Client client, Scanner scanner) {
 
 		if (client.getNbDeComptes() < 3) {
 
@@ -58,8 +60,8 @@ public class App {
 			switch (scanner.nextInt()) {
 			case 1:
 
-				client.ajouterCompte(client.getNbDeComptes(), new CompteCourant(agence, client, 0f, false));
-				agence.getListeComptes().add(client.getListeComptes()[client.getNbDeComptes()]);
+				client.ajouterCompte(client.getNbDeComptes(), new CompteCourant(currentAgence, client, 0f, false));
+				currentAgence.getListeComptes().add(client.getListeComptes()[client.getNbDeComptes()]);
 				client.setNbDeComptes(client.getNbDeComptes() + 1);
 
 				System.out.println("Vous avez ouvert le compte courant : "
@@ -68,16 +70,16 @@ public class App {
 				break;
 			case 2:
 
-				client.ajouterCompte(client.getNbDeComptes(), new CompteLivretA(agence, client, 0f, false));
-				agence.getListeComptes().add(client.getListeComptes()[client.getNbDeComptes()]);
+				client.ajouterCompte(client.getNbDeComptes(), new CompteLivretA(currentAgence, client, 0f, false));
+				currentAgence.getListeComptes().add(client.getListeComptes()[client.getNbDeComptes()]);
 				client.setNbDeComptes(client.getNbDeComptes() + 1);
 				System.out.println("Vous avez ouvert le Livret A : "
 						+ client.getListeComptes()[client.getNbDeComptes() - 1].toString());
 				break;
 			case 3:
 
-				client.ajouterCompte(client.getNbDeComptes(), new ComptePEL(agence, client, 0f, false));
-				agence.getListeComptes().add(new ComptePEL(agence, client, 0f, false));
+				client.ajouterCompte(client.getNbDeComptes(), new ComptePEL(currentAgence, client, 0f, false));
+				currentAgence.getListeComptes().add(new ComptePEL(currentAgence, client, 0f, false));
 				client.setNbDeComptes(client.getNbDeComptes() + 1);
 				System.out.println("Vous avez ouvert le PEL : "
 						+ client.getListeComptes()[client.getNbDeComptes() - 1].toString());
@@ -93,24 +95,24 @@ public class App {
 		}
 	}
 
-	public static FicheClient creerFicheClient(Agence agence, String clientId) {
+	public static FicheClient creerFicheClient(String clientId) {
 		FicheClient fiche;
-		fiche = new FicheClient(rechercherClient(agence, clientId));
+		fiche = new FicheClient(rechercherClient(clientId));
 		return fiche;
 	}
 
-	public static void afficherListeClient(Agence agence) {
+	public static void afficherListeClient() {
 
-		for (Client client : agence.getListeClient()) {
+		for (Client client : currentAgence.getListeClient()) {
 			System.out.println(client.toString());
 			System.out.println();
 
 		}
 	}
 
-	public static void afficherComptesAgence(Agence agence) {
+	public static void afficherComptesAgence() {
 
-		for (CompteBancaire compte : agence.getListeComptes()) {
+		for (CompteBancaire compte : currentAgence.getListeComptes()) {
 			System.out.println(compte.toString());
 		}
 	}
@@ -124,11 +126,10 @@ public class App {
 		}
 	}
 
-	public static CompteBancaire rechercherCompte(Agence agence, String recherche) {
+	public static CompteBancaire rechercherCompte(String recherche) {
 
-		for (CompteBancaire compte : agence.getListeComptes()) {
+		for (CompteBancaire compte : currentAgence.getListeComptes()) {
 			if (compte.getId().equals(recherche)) {
-				System.out.println("Compte Trouvé : " + compte.toString());
 				return compte;
 			}
 		}
@@ -137,9 +138,9 @@ public class App {
 
 	}
 
-	public static Client rechercherClient(Agence agence, String recherche) {
+	public static Client rechercherClient(String recherche) {
 
-		for (Client client : agence.getListeClient()) {
+		for (Client client : currentAgence.getListeClient()) {
 
 			/// Recherche par Nom
 			if (client.getNom().equals(recherche)) {
@@ -153,7 +154,7 @@ public class App {
 			}
 
 			/// Recherche par #Compte
-			for (CompteBancaire compte : agence.getListeComptes()) {
+			for (CompteBancaire compte : currentAgence.getListeComptes()) {
 				if (compte.getId().equals(recherche)) {
 					System.out.println("Client Trouvé : " + compte.getClient().toString());
 					return compte.getClient();
@@ -179,6 +180,14 @@ public class App {
 
 	public void activerClient(Client client) {
 		client.setEstActif(true);
+	}
+
+	public static Agence getCurrentAgence() {
+		return currentAgence;
+	}
+
+	public static void setCurrentAgence(Agence agence) {
+		currentAgence = agence;
 	}
 
 }
