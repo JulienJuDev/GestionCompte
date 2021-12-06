@@ -1,11 +1,11 @@
 package app;
 
-public class MenuPrincipal extends Menu {
 
-	static String titre = "Menu Principal";
-	static String[] options = { "1. Créer Agence", "2. Créer Client", "3. Créer Compte Bancaire",
-			"4. Rechercher un compte", "5. Rechercher un client", "6. Afficher la liste des clients",
-			"7. Imprimer les informations client", "8. Quitter" };
+public class MenuRecherche extends Menu {
+
+	static String titre = "Rechercher Client par...";
+	static String[] options = { "1. Nom", "2. Id", "3. Numero de Compte", "4. Retour"};
+			
 
 	public static void afficher() {
 
@@ -19,5 +19,4 @@ public class MenuPrincipal extends Menu {
 		}
 		System.out.println("--------------");
 	}
-
 }

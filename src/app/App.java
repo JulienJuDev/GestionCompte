@@ -2,9 +2,9 @@ package app;
 
 import java.util.Scanner;
 
-import client.*;
 import metier.*;
 import outils.*;
+import utilisateur.*;
 
 public class App {
 
@@ -97,7 +97,7 @@ public class App {
 
 	public static FicheClient creerFicheClient(String clientId) {
 		FicheClient fiche;
-		fiche = new FicheClient(rechercherClient(clientId));
+		fiche = new FicheClient(rechercherClientParID(clientId));
 		return fiche;
 	}
 
@@ -138,32 +138,42 @@ public class App {
 
 	}
 
-	public static Client rechercherClient(String recherche) {
+	
+	public static Client rechercherClientParID(String recherche) {
 
 		for (Client client : currentAgence.getListeClient()) {
-
-			/// Recherche par Nom
-			if (client.getNom().equals(recherche)) {
-				System.out.println("Client Trouvé : " + client.toString());
-				return client;
-			}
-			/// Recherche par Id
+			
 			if (client.getId().equals(recherche)) {
 				System.out.println("Client Trouvé : " + client.toString());
 				return client;
 			}
+		}
+		System.out.println("La recherche n'a rien donné");
+		return null;
+	}
+	
+	public static Client rechercherClientParNom(String recherche) {
 
-			/// Recherche par #Compte
-			for (CompteBancaire compte : currentAgence.getListeComptes()) {
-				if (compte.getId().equals(recherche)) {
-					System.out.println("Client Trouvé : " + compte.getClient().toString());
-					return compte.getClient();
-				}
+		for (Client client : currentAgence.getListeClient()) {
+			
+			if (client.getNom().equals(recherche)) {
+				System.out.println("Client Trouvé : " + client.toString());
+				return client;
 			}
 		}
 		System.out.println("La recherche n'a rien donné");
 		return null;
+	}
+	public static Client rechercherClientParCompte(String recherche) {
 
+		for (CompteBancaire compte : currentAgence.getListeComptes()) {
+			if (compte.getId().equals(recherche)) {
+				System.out.println("Client Trouvé : " + compte.getClient().toString());
+				return compte.getClient();
+			}
+		}
+		System.out.println("La recherche n'a rien donné");
+		return null;
 	}
 
 	public void desactiverCompte(CompteBancaire compte) {

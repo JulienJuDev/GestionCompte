@@ -2,8 +2,8 @@ package metier;
 
 import java.util.ArrayList;
 
-import client.Client;
 import outils.*;
+import utilisateur.Client;
 
 public class Agence {
 
@@ -32,7 +32,7 @@ public class Agence {
 	
 	@Override
 	public String toString() {
-		return ("Agence " + this.nom + "\n" +
+		return (this.nom + "\n" +
 				this.adresse.toString() + "\n" +
 				"Id : " + this.id);
 				

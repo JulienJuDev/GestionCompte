@@ -1,6 +1,6 @@
 package metier;
 
-import client.Client;
+import utilisateur.Client;
 
 public class FicheClient {
 	

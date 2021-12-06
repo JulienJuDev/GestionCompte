@@ -1,7 +1,7 @@
 package metier;
 
-import client.Client;
 import outils.Outils;
+import utilisateur.Client;
 
 public abstract class CompteBancaire {
 

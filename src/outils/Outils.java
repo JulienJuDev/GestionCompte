@@ -16,7 +16,9 @@ public class Outils {
 	}
 	
 	static String lettersString = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+	static String lowerCaseLettersString = "abcdefghijklmnopqrstuvwxyz";
 	static String numericsString = "0123456789";
+	static String allString = lettersString + lowerCaseLettersString + numericsString;
 		
 	public static String genererNumericalId(int n) {
 		String result = "";
@@ -33,6 +35,39 @@ public class Outils {
 		}
 		for (int i = 0; i < 6 ; i++) {
 			result += numericsString.charAt(getRandomNumberInRange(0, numericsString.length()-1));
+		}
+		return result;
+	}
+	public static String genererLoginClient() {
+		String result = "";
+		
+		for (int i = 0; i < 10 ; i++) {
+			result += numericsString.charAt(getRandomNumberInRange(0, numericsString.length()-1));
+		}
+		return result;
+	}
+	public static String genererLoginConseiller() {
+		String result = "CO";
+		
+		for (int i = 0; i < 4 ; i++) {
+			result += numericsString.charAt(getRandomNumberInRange(0, numericsString.length()-1));
+		}
+		return result;
+	}
+	public static String genererLoginAdmin() {
+		String result = "ADM";
+		
+		
+		for (int i = 0; i < 2 ; i++) {
+			result += numericsString.charAt(getRandomNumberInRange(0, numericsString.length()-1));
+		}
+		return result;
+	}
+	public static String genererMotDePasse(int length) {
+		String result = "";
+		
+		for (int i = 0; i < length ; i++) {
+			result += allString.charAt(getRandomNumberInRange(0, allString.length()-1));
 		}
 		return result;
 	}
