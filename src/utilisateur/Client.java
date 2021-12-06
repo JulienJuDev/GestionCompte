@@ -11,6 +11,8 @@ public class Client extends Utilisateur {
 	public Client(String nom, String prenom, Date dateDeNaissance, Adresse adresse, String email, boolean estActif) {
 		super(nom, prenom, dateDeNaissance, adresse, email, estActif);
 
+		
+		this.id = Outils.genererIdClient();
 		this.login = Outils.genererLoginClient();
 	}
 
@@ -24,6 +26,8 @@ public class Client extends Utilisateur {
 				String.valueOf(Outils.getRandomNumberInRange(1950, 2002)));
 		this.adresse = new Adresse();
 		this.email = this.nom + this.prenom + "@gmail.com";
+		this.login = Outils.genererLoginClient();
+		this.id = Outils.genererIdClient();
 
 	}
 

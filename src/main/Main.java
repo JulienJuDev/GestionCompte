@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 import metier.*;
-import outils.Adresse;
-import outils.Date;
 import utilisateur.*;
 import app.*;
 
@@ -30,7 +28,7 @@ public class Main {
 
 		listeAgences.add(new Agence());
 		listeAgences.add(new Agence());
-		
+
 		listeAgences.get(0).getListeClient().add(new Client());
 		listeAgences.get(0).getListeClient().add(new Client());
 		listeAgences.get(0).getListeClient().add(new Client());
@@ -38,37 +36,54 @@ public class Main {
 		listeAgences.get(1).getListeClient().add(new Client());
 		listeAgences.get(1).getListeClient().add(new Client());
 		
+		listeAgences.get(0).getListeConseiller().add(new Conseiller());
+		listeAgences.get(0).getListeConseiller().add(new Conseiller());
+		
+		listeAgences.get(1).getListeConseiller().add(new Conseiller());
+		listeAgences.get(1).getListeConseiller().add(new Conseiller());
+
+		listeAgences.get(0).getListeAdmin().add(new Admin());
+		listeAgences.get(1).getListeAdmin().add(new Admin());
+
 		String currentMenu = "AGENCE";
-		
+
 		// Debut de la boucle de saisie
 
 		do {
 
 			//// MENU AGENCE
-			if(currentMenu.contentEquals("AGENCE")) {
+			if (currentMenu.contentEquals("AGENCE")) {
 				MenuChoixAgence.afficher();
 				for (int i = 0; i < listeAgences.size(); i++) {
-					
-					System.out.println((i+1) + ". " + listeAgences.get(i).getNom());
+
+					System.out.println((i + 1) + ". " + listeAgences.get(i).getNom());
 				}
-				
+
 				App.setCurrentAgence(listeAgences.get(scanner.nextInt() - 1));
 				currentMenu = "LOGIN";
 			}
-			
-			
-			
+
 			//// MENU LOGIN
-			if(currentMenu.contentEquals("LOGIN")) {
+			if (currentMenu.contentEquals("LOGIN")) {
 				MenuLogin.afficher();
+				App.getCurrentAgence().getListeClient();
+				//// DEBUG ///
+				for (Client client: App.getCurrentAgence().getListeClient()) {
+					System.out.println(client.getNom() + " " + client.getPrenom());
+					System.out.println(client.getLogin());
+				}
+				//// DEBUG ///
 				switch (scanner.next()) {
 				case "1":
-					
-					String login = scanner.next();
-					
+
+					App.setCurrentUser(App.rechercherClientParLogin(scanner.next()));
+					System.out.println("Content de vous revoir " + App.getCurrentUser().getNom()
+							+ " " + App.getCurrentUser().getPrenom());
+					currentMenu = "PRINCIPAL";
+
 					break;
 				case "2":
-					
+
 					currentMenu = "AGENCE";
 					break;
 
@@ -76,11 +91,9 @@ public class Main {
 					break;
 				}
 			}
-			
-			
-			
+
 			//// MENU RECHERCHER
-			if(currentMenu.contentEquals("RECHERCHER")) {
+			if (currentMenu.contentEquals("RECHERCHER")) {
 				MenuRecherche.afficher();
 				switch (scanner.next()) {
 				case "1":
@@ -97,88 +110,85 @@ public class Main {
 					break;
 				}
 			}
-			
+
 			//// MENU PRINCIPAL
-			if(currentMenu.contentEquals("PRINCIPAL")) {
-				
+			if (currentMenu.contentEquals("PRINCIPAL")) {
+
 				MenuPrincipal.afficher();
-				
+
 				switch (scanner.next()) {
 				case "1":
-					
+
 					listeAgences.add(App.creerAgence(scanner));
 					System.out.println("Nouvelle agence créée :");
 					System.out.println(listeAgences.get(listeAgences.size() - 1).toString());
-					
+
 					break;
 				case "d1": // debug fakeAgence
-					
+
 					listeAgences.add(App.creerFakeAgence());
 					System.out.println("Nouvelle agence créée :");
 					System.out.println(listeAgences.get(listeAgences.size() - 1).toString());
-					
+
 					break;
-					
+
 				case "2":
-					//// TODO : Selectionner l'agence à qui rajouter un client (Agence currentAgence
-					//// ? ---> Menu Agence ?)
 					App.creerClient(scanner);
-					
+
 					System.out.println("Nouveau client crée :");
 					System.out.println(App.getCurrentAgence().getListeClient()
 							.get(App.getCurrentAgence().getListeClient().size() - 1).toString());
 					bufferedWritter.append(App.getCurrentAgence().getListeClient()
 							.get(App.getCurrentAgence().getListeClient().size() - 1).toString());
-					
+
 					break;
 				case "d2": // debug fake Client
-					
+
 					App.creerFakeClient();
-					
+
 					System.out.println("Nouveau client crée :");
 					System.out.println(App.getCurrentAgence().getListeClient()
 							.get(App.getCurrentAgence().getListeClient().size() - 1).toString());
 					bufferedWritter.append(App.getCurrentAgence().getListeClient()
 							.get(App.getCurrentAgence().getListeClient().size() - 1).toString());
-					
+
 					break;
 				case "3":
-					
+
 					App.creerCompte(App.getCurrentAgence().getListeClient().get(0), scanner);
-					
+
 					break;
-					
+
 				case "4":
 					System.out.println("Rentrez le numéro de compte");
 					App.rechercherCompte(scanner.next());
 					break;
-					
+
 				case "5":
 					currentMenu = "RECHERCHER";
-					
-					
+
 					break;
 				case "6":
 					App.afficherListeClient();
-					
+
 					break;
 				case "7":
 					System.out.println("Rentrez un nom, un identifiant ou un numero de compte du client");
 					System.out.println();
-					
-					// System.out.println(App.creerFicheClient(currentAgence,
-					// scanner.next()).toString());
+
 					bufferedWritter.append(App.creerFicheClient(scanner.next()).toString());
 					bufferedWritter.flush();
-					
+
 					break;
-					/// Quitte l'app
+				/// Quitte l'app
 				case "8":
-					
+
 					System.out.println("Bonne journée.");
-					saisieTermine = true;
+					App.setCurrentUser(null);
+					currentMenu = "LOGIN"; 
+//					saisieTermine = true;
 					break;
-					
+
 				default:
 					break;
 				}

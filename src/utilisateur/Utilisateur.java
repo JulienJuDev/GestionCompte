@@ -67,6 +67,14 @@ public abstract class Utilisateur {
 		this.motDePasse = motDePasse;
 	}
 
+	public String getLogin() {
+		return login;
+	}
+
+	public void setLogin(String login) {
+		this.login = login;
+	}
+
 	public String getNom() {
 		return nom;
 	}

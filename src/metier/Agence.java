@@ -2,8 +2,8 @@ package metier;
 
 import java.util.ArrayList;
 
+import utilisateur.*;
 import outils.*;
-import utilisateur.Client;
 
 public class Agence {
 
@@ -12,6 +12,8 @@ public class Agence {
 	private Adresse adresse;
 	
 	private ArrayList<Client> listeClient = new ArrayList<>();
+	private ArrayList<Conseiller> listeConseiller = new ArrayList<>();
+	private ArrayList<Admin> listeAdmin = new ArrayList<>();
 	private ArrayList<CompteBancaire> listeComptes = new ArrayList<>();
 	
 	private final float fraisBancaire = 25f;
@@ -32,7 +34,7 @@ public class Agence {
 	
 	@Override
 	public String toString() {
-		return (this.nom + "\n" +
+		return ("Agence " + this.nom + "\n" +
 				this.adresse.toString() + "\n" +
 				"Id : " + this.id);
 				
@@ -62,5 +64,21 @@ public class Agence {
 
 	public ArrayList<CompteBancaire> getListeComptes() {
 		return listeComptes;
+	}
+
+	public ArrayList<Conseiller> getListeConseiller() {
+		return listeConseiller;
+	}
+
+	public void setListeConseiller(ArrayList<Conseiller> listeConseiller) {
+		this.listeConseiller = listeConseiller;
+	}
+
+	public ArrayList<Admin> getListeAdmin() {
+		return listeAdmin;
+	}
+
+	public void setListeAdmin(ArrayList<Admin> listeAdmin) {
+		this.listeAdmin = listeAdmin;
 	}
 }

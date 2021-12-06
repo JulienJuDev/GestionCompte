@@ -31,7 +31,7 @@ public class Outils {
 	public static String genererIdClient() {
 		String result = "";
 		for (int i = 0; i < 2 ; i++) {
-			result += lettersString.charAt(getRandomNumberInRange(0, numericsString.length()-1));
+			result += lettersString.charAt(getRandomNumberInRange(0, lettersString.length()-1));
 		}
 		for (int i = 0; i < 6 ; i++) {
 			result += numericsString.charAt(getRandomNumberInRange(0, numericsString.length()-1));

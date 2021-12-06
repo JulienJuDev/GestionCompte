@@ -9,6 +9,7 @@ import utilisateur.*;
 public class App {
 
 	private static Agence currentAgence;
+	private static Utilisateur currentUser;
 	
 	public static Agence creerFakeAgence() {
 
@@ -151,6 +152,18 @@ public class App {
 		System.out.println("La recherche n'a rien donné");
 		return null;
 	}
+	public static Client rechercherClientParLogin(String recherche) {
+
+		for (Client client : currentAgence.getListeClient()) {
+			
+			if (client.getLogin().equals(recherche)) {
+				System.out.println("Client Trouvé : " + client.toString());
+				return client;
+			}
+		}
+		System.out.println("La recherche n'a rien donné");
+		return null;
+	}
 	
 	public static Client rechercherClientParNom(String recherche) {
 
@@ -198,6 +211,14 @@ public class App {
 
 	public static void setCurrentAgence(Agence agence) {
 		currentAgence = agence;
+	}
+
+	public static Utilisateur getCurrentUser() {
+		return currentUser;
+	}
+
+	public static void setCurrentUser(Utilisateur currentUser) {
+		App.currentUser = currentUser;
 	}
 
 }
