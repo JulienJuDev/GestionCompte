@@ -1,5 +1,6 @@
 package utilisateur;
 
+import metier.Agence;
 import metier.CompteBancaire;
 import outils.*;
 
@@ -8,18 +9,20 @@ public class Client extends Utilisateur {
 	private int nbDeComptes = 0;
 	private CompteBancaire[] listeComptes = new CompteBancaire[3];
 
-	public Client(String nom, String prenom, Date dateDeNaissance, Adresse adresse, String email, boolean estActif) {
-		super(nom, prenom, dateDeNaissance, adresse, email, estActif);
+	public Client(String nom, String prenom, Date dateDeNaissance, Adresse adresse, String email, boolean estActif, Agence agence) {
+		super(nom, prenom, dateDeNaissance, adresse, email, estActif, agence);
 
 		this.login = Outils.genererLoginClient();
 		this.profil = "CLI";
 	}
 
 	//// Generer un Client Random
-	public Client() {
+	public Client(Agence agence) {
 		
+		super(agence);
 		this.login = Outils.genererLoginClient();
 		this.profil = "CLI";
+		
 	}
 
 	public CompteBancaire[] getListeComptes() {

@@ -11,7 +11,8 @@ public class MenuPrincipal extends Menu {
 
 		System.out.println("--------------");
 		System.out.println(titre);
-		System.out.println(App.getCurrentAgence().toString());
+		System.out.println(App.getCurrentAgence().getNom());
+		System.out.println(App.getCurrentAgence().getId());
 		System.out.println("--------------");
 
 		for (String options : options) {

@@ -11,16 +11,17 @@ public abstract class CompteBancaire {
 	protected float solde;
 	protected boolean decouvertAutorise;
 	protected boolean estActif = true;
+	protected String type;
 
 	public CompteBancaire(Agence agence, Client client, float solde, boolean decouvertAutorise) {
-		
+
 		this.agence = agence;
 		this.client = client;
 		this.solde = solde;
 		this.decouvertAutorise = decouvertAutorise;
-		
+
 	}
-	
+
 	public Client getClient() {
 		return client;
 	}
@@ -63,12 +64,13 @@ public abstract class CompteBancaire {
 
 	@Override
 	public String toString() {
-		return  "Compte numero #" + id + "\n" +
-				agence + 
-				client + "\n" +
-				"solde : " + solde;
-				
+		return "Compte numero #" + id + "\n" + agence + client + "\n" + "solde : " + solde;
+
 	}
 
-	
+	public String afficher() {
+		return " [ " + type + " ] " + "Compte numero #" + id + "\n" + "solde : " + solde;
+
+	}
+
 }

@@ -7,10 +7,11 @@ public class CompteLivretA extends CompteEpargne {
 	public CompteLivretA(metier.Agence agence, Client client, float solde, boolean decouvertAutorise) {
 		super(agence, client, solde, decouvertAutorise);
 		coeff = 0.1f;
+		type = "Livret A";
 	}
 
 	@Override
 	public String toString() {
-		return "[ Livret A ] \n" + super.toString();
+		return type + super.toString();
 	}
 }

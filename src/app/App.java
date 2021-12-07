@@ -1,5 +1,6 @@
 package app;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 import metier.*;
@@ -19,7 +20,7 @@ public class App {
 
 	public static void creerFakeClient() {
 
-		currentAgence.getListeClient().add(new Client());
+		currentAgence.getListeClient().add(new Client(currentAgence));
 	}
 
 	public static Agence creerAgence(Scanner scanner) {
@@ -34,11 +35,11 @@ public class App {
 		return new Agence(nom, adresse);
 	}
 
-	public static void creerClient(Scanner scanner) {
+	public static Client creerClient(Scanner scanner, Agence agence) {
 
 		System.out.println("Nom");
 		String nom = scanner.next();
-		System.out.println("Nom");
+		System.out.println("Prenom");
 		String prenom = scanner.next();
 		System.out.println("Date de Naissance");
 		Date dateNaissance = new Date(scanner.next(), scanner.next(), scanner.next());
@@ -47,7 +48,7 @@ public class App {
 		System.out.println("email");
 		String email = scanner.next();
 
-		currentAgence.getListeClient().add(new Client(nom, prenom, dateNaissance, adresse, email, true));
+		return new Client(nom, prenom, dateNaissance, adresse, email, true, agence);
 	}
 
 	public static void creerCompte(Client client, Scanner scanner) {
@@ -126,9 +127,14 @@ public class App {
 
 		for (CompteBancaire compte : client.getListeComptes()) {
 			if (compte != null) {
-				System.out.println(compte.toString());
+				System.out.println(compte.getId());
+				System.out.println(compte.getSolde());
 			}
 		}
+	}
+	public static void changerDomiciliation(Client client, Agence agenceOrigine, Agence agenceCible) {
+		agenceOrigine.getListeClient().remove(client);
+		client.setAgence(agenceCible);
 	}
 
 	public static CompteBancaire rechercherCompte(String recherche) {
@@ -161,26 +167,26 @@ public class App {
 		for (Client client : currentAgence.getListeClient()) {
 			
 			if (client.getLogin().equals(recherche)) {
-				System.out.println("Client trouvé : " + client.toString());
+				//System.out.println("Client trouvé : " + client.toString());
 				return client;
 			}
 		}
 		for (Conseiller conseiller : currentAgence.getListeConseiller()) {
 			
 			if (conseiller.getLogin().equals(recherche)) {
-				System.out.println("Conseiller trouvé : " + conseiller.toString());
+				//System.out.println("Conseiller trouvé : " + conseiller.toString());
 				return conseiller;
 			}
 		}
 		for (Admin admin: currentAgence.getListeAdmin()) {
 			
 			if (admin.getLogin().equals(recherche)) {
-				System.out.println("Admin trouvé : " + admin.toString());
+				//System.out.println("Admin trouvé : " + admin.toString());
 				return admin;
 			}
 		}
 		
-		System.out.println("La recherche n'a rien donné");
+		System.out.println("Login Introuvable");
 		return null;
 	}
 	
@@ -191,6 +197,18 @@ public class App {
 			if (client.getLogin().equals(recherche)) {
 				System.out.println("Client Trouvé : " + client.toString());
 				return client;
+			}
+		}
+		System.out.println("La recherche n'a rien donné");
+		return null;
+	}
+	public static Agence rechercherAgenceParId(String recherche, ArrayList<Agence> listeAgences) {
+
+		for (Agence agence: listeAgences) {
+			
+			if (agence.getId().equals(recherche)) {
+				System.out.println("Agence Trouvé : " + agence.toString());
+				return agence;
 			}
 		}
 		System.out.println("La recherche n'a rien donné");
@@ -221,6 +239,7 @@ public class App {
 		return null;
 	}
 
+	
 	public void desactiverCompte(CompteBancaire compte) {
 		compte.setEstActive(false);
 	}

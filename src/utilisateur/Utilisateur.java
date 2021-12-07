@@ -1,5 +1,6 @@
 package utilisateur;
 
+import metier.Agence;
 import outils.Adresse;
 import outils.Date;
 import outils.Outils;
@@ -17,22 +18,25 @@ public abstract class Utilisateur {
 	protected String email;
 	protected String profil;
 	protected boolean estActif = true;
+	protected Agence agence;
 	
 	
 
+
 	public Utilisateur(String nom, String prenom, Date dateDeNaissance, Adresse adresse, String email,
-			boolean estActif) {
+			boolean estActif, Agence agence) {
 
 		this.nom = nom;
 		this.prenom = prenom;
 		this.dateDeNaissance = dateDeNaissance;
 		this.adresse = adresse;
 		this.email = email;
+		this.agence = agence;
 		
 	}
 
 	//// Version random de cette classe
-	public Utilisateur() {
+	public Utilisateur(Agence agence) {
 		this.nom = RandomNameTable.tableNom[Outils.getRandomNumberInRange(0, RandomNameTable.tableNom.length - 1)];
 		this.prenom = RandomNameTable.tablePrenom[Outils.getRandomNumberInRange(0,
 				RandomNameTable.tablePrenom.length - 1)];
@@ -41,6 +45,7 @@ public abstract class Utilisateur {
 				String.valueOf(Outils.getRandomNumberInRange(1950, 2002)));
 		this.adresse = new Adresse();
 		this.email = this.nom + this.prenom + "@gmail.com";
+		this.agence = agence;
 	}
 	
 	public Adresse getAdresse() {
@@ -105,5 +110,12 @@ public abstract class Utilisateur {
 	}
 	public String getProfil() {
 		return profil;
+	}
+	public Agence getAgence() {
+		return agence;
+	}
+	
+	public void setAgence(Agence agence) {
+		this.agence = agence;
 	}
 }

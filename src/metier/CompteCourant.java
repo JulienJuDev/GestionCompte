@@ -6,11 +6,12 @@ public class CompteCourant extends CompteBancaire {
 
 	public CompteCourant(metier.Agence agence, Client client, float solde, boolean decouvertAutorise) {
 		super(agence, client, solde, decouvertAutorise);
+		type = "Compte Courant";
 	}
 
 	@Override
 	public String toString() {
-		return "[ Compte courant ] \n" + super.toString();
+		return type + super.toString();
 	}
 	
 	
