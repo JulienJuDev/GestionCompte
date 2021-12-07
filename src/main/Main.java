@@ -32,9 +32,7 @@ public class Main {
 		Agence agenceDebug = new Agence();
 		App.setCurrentAgence(agenceDebug);
 
-		//// TEST DEBUG ///
 
-		//// TEST DEBUG ///
 
 		// Debut de la boucle de saisie
 
