@@ -6,14 +6,17 @@ import outils.Outils;
 
 public class Conseiller extends Utilisateur {
 
-	String login = Outils.genererLoginConseiller();
+	
 	public Conseiller() {
-		super();
+		
+		this.profil = "CONS";
+		this.login = Outils.genererLoginConseiller();
 	}
 
 	public Conseiller(String nom, String prenom, Date dateDeNaissance, Adresse adresse, String email,
 			boolean estActif) {
 		super(nom, prenom, dateDeNaissance, adresse, email, estActif);
+		this.login = Outils.genererLoginConseiller();
 	}
 	
 

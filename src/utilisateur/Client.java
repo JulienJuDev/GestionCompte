@@ -11,24 +11,15 @@ public class Client extends Utilisateur {
 	public Client(String nom, String prenom, Date dateDeNaissance, Adresse adresse, String email, boolean estActif) {
 		super(nom, prenom, dateDeNaissance, adresse, email, estActif);
 
-		
-		this.id = Outils.genererIdClient();
 		this.login = Outils.genererLoginClient();
+		this.profil = "CLI";
 	}
 
 	//// Generer un Client Random
 	public Client() {
-		this.nom = RandomNameTable.tableNom[Outils.getRandomNumberInRange(0, RandomNameTable.tableNom.length - 1)];
-		this.prenom = RandomNameTable.tablePrenom[Outils.getRandomNumberInRange(0,
-				RandomNameTable.tablePrenom.length - 1)];
-		this.dateDeNaissance = new Date(String.valueOf(Outils.getRandomNumberInRange(1, 30)),
-				String.valueOf(Outils.getRandomNumberInRange(0, 12)),
-				String.valueOf(Outils.getRandomNumberInRange(1950, 2002)));
-		this.adresse = new Adresse();
-		this.email = this.nom + this.prenom + "@gmail.com";
+		
 		this.login = Outils.genererLoginClient();
-		this.id = Outils.genererIdClient();
-
+		this.profil = "CLI";
 	}
 
 	public CompteBancaire[] getListeComptes() {

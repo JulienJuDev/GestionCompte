@@ -51,7 +51,8 @@ public class Main {
 
 		do {
 
-			//// MENU AGENCE
+			//// MENU AGENCE : Selectionne l'agence dans laquelle on va travailler
+			
 			if (currentMenu.contentEquals("AGENCE")) {
 				MenuChoixAgence.afficher();
 				for (int i = 0; i < listeAgences.size(); i++) {
@@ -59,31 +60,64 @@ public class Main {
 					System.out.println((i + 1) + ". " + listeAgences.get(i).getNom());
 				}
 
+				try {
 				App.setCurrentAgence(listeAgences.get(scanner.nextInt() - 1));
 				currentMenu = "LOGIN";
+				}
+				catch(IndexOutOfBoundsException e) { 
+					System.out.println("Choix invalide");
+				}
+				
 			}
 
-			//// MENU LOGIN
+			//// MENU LOGIN : Permet d'accéder aux utilisateurs enregistrées dans listeClient/listeConseiller/ListeAdmin
+			// Si le login ne correspond a personne dans les listes, il sera crée
 			if (currentMenu.contentEquals("LOGIN")) {
 				MenuLogin.afficher();
 				App.getCurrentAgence().getListeClient();
-				//// DEBUG ///
+				
+				
+				//// DEBUG affiche liste client///
+				System.out.println("DEBUG : Liste des clients \n");
 				for (Client client: App.getCurrentAgence().getListeClient()) {
 					System.out.println(client.getNom() + " " + client.getPrenom());
 					System.out.println(client.getLogin());
 				}
-				//// DEBUG ///
+				System.out.println("DEBUG : Liste des conseillers \n");
+				for (Conseiller conseiller : App.getCurrentAgence().getListeConseiller()) {
+					System.out.println(conseiller.getNom() + " " + conseiller.getPrenom());
+					System.out.println(conseiller.getLogin());
+				}
+				System.out.println("DEBUG : Liste des admins \n");
+				for (Admin admin: App.getCurrentAgence().getListeAdmin()) {
+					System.out.println(admin.getNom() + " " + admin.getPrenom());
+					System.out.println(admin.getLogin());
+				}
+				///////
+				
+				
 				switch (scanner.next()) {
 				case "1":
 
-					App.setCurrentUser(App.rechercherClientParLogin(scanner.next()));
+					try {
+					App.setCurrentUser(App.rechercherUserParLogin(scanner.next()));
+					
 					System.out.println("Content de vous revoir " + App.getCurrentUser().getNom()
 							+ " " + App.getCurrentUser().getPrenom());
 					currentMenu = "PRINCIPAL";
+					}
+					catch(NullPointerException e) {
+						
+					}
 
 					break;
 				case "2":
 
+					currentMenu = "AGENCE";
+					break;
+				
+				case "3":
+					
 					currentMenu = "AGENCE";
 					break;
 
@@ -93,24 +127,32 @@ public class Main {
 			}
 
 			//// MENU RECHERCHER
-			if (currentMenu.contentEquals("RECHERCHER")) {
-				MenuRecherche.afficher();
-				switch (scanner.next()) {
-				case "1":
-					App.rechercherClientParNom(scanner.next());
-					break;
-				case "2":
-					App.rechercherClientParID(scanner.next());
-					break;
-				case "3":
-					App.rechercherClientParCompte(scanner.next());
-					break;
-				case "4":
-					currentMenu = "PRINCIPAL";
-					break;
+				
+				if (currentMenu.contentEquals("RECHERCHER")) {
+					do {
+					
+						MenuRecherche.afficher();
+						switch (scanner.next()) {
+						case "1":
+							App.rechercherClientParNom(scanner.next());
+							break;
+						case "2":
+							App.rechercherClientParID(scanner.next());
+							break;
+						case "3":
+							App.rechercherClientParCompte(scanner.next());
+							break;
+						case "4":
+							currentMenu = "PRINCIPAL";
+							break;
+						
+						default :
+							System.out.println("Ca n'est pas un choix valide");
+							break;
+						}
+					}while(!saisieTermine);
 				}
-			}
-
+				
 			//// MENU PRINCIPAL
 			if (currentMenu.contentEquals("PRINCIPAL")) {
 

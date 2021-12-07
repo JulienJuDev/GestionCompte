@@ -6,15 +6,15 @@ import outils.Outils;
 
 public class Admin extends Utilisateur {
 
-	String login = Outils.genererLoginAdmin();
-	
 	public Admin() {
-		super();
-		// TODO Auto-generated constructor stub
+		
+		this.login = Outils.genererLoginAdmin();
+		this.profil = "ADM";
+
 	}
 
 	public Admin(String nom, String prenom, Date dateDeNaissance, Adresse adresse, String email, boolean estActif) {
 		super(nom, prenom, dateDeNaissance, adresse, email, estActif);
-		// TODO Auto-generated constructor stub
+		this.profil = "ADM";
 	}
 }

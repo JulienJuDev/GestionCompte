@@ -2,7 +2,7 @@ package app;
 
 public class MenuChoixAgence extends Menu {
 
-	static String titre = "Selection";
+	static String titre = "Agence";
 	static String[] options = { "Selectionnez une agence"};
 
 	public static void afficher() {

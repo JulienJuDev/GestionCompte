@@ -156,6 +156,34 @@ public class App {
 		System.out.println("La recherche n'a rien donné");
 		return null;
 	}
+	public static Utilisateur rechercherUserParLogin(String recherche) {
+
+		for (Client client : currentAgence.getListeClient()) {
+			
+			if (client.getLogin().equals(recherche)) {
+				System.out.println("Client trouvé : " + client.toString());
+				return client;
+			}
+		}
+		for (Conseiller conseiller : currentAgence.getListeConseiller()) {
+			
+			if (conseiller.getLogin().equals(recherche)) {
+				System.out.println("Conseiller trouvé : " + conseiller.toString());
+				return conseiller;
+			}
+		}
+		for (Admin admin: currentAgence.getListeAdmin()) {
+			
+			if (admin.getLogin().equals(recherche)) {
+				System.out.println("Admin trouvé : " + admin.toString());
+				return admin;
+			}
+		}
+		
+		System.out.println("La recherche n'a rien donné");
+		return null;
+	}
+	
 	public static Client rechercherClientParLogin(String recherche) {
 
 		for (Client client : currentAgence.getListeClient()) {

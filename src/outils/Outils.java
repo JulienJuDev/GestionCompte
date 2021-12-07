@@ -28,7 +28,7 @@ public class Outils {
 		return result;
 	}
 	
-	public static String genererIdClient() {
+	public static String genererId() {
 		String result = "";
 		for (int i = 0; i < 2 ; i++) {
 			result += lettersString.charAt(getRandomNumberInRange(0, lettersString.length()-1));
