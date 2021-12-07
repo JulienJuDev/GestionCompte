@@ -12,7 +12,7 @@ public class App {
 	private static Agence currentAgence;
 	private static CompteBancaire currentCompte;
 	private static Utilisateur currentUser;
-	
+
 	public static Agence creerFakeAgence() {
 
 		return new Agence();
@@ -92,18 +92,18 @@ public class App {
 				System.out.println("Ca n'est pas un choix valide");
 			}
 
-		}
-		else {
+		} else {
 			System.out.println("Impossible, vous avez déja ouvert 3 comptes dans cette agence.");
 		}
 	}
 
 	public static FicheClient creerFicheClient(String idClient) {
-		
+
 		return new FicheClient(rechercherClientParID(idClient));
 	}
+
 	public static FicheClient creerFicheClient(Client client) {
-		
+
 		return new FicheClient(client);
 	}
 
@@ -132,6 +132,7 @@ public class App {
 			}
 		}
 	}
+
 	public static void changerDomiciliation(Client client, Agence agenceOrigine, Agence agenceCible) {
 		agenceOrigine.getListeClient().remove(client);
 		client.setAgence(agenceCible);
@@ -149,11 +150,10 @@ public class App {
 
 	}
 
-	
 	public static Client rechercherClientParID(String recherche) {
 
 		for (Client client : currentAgence.getListeClient()) {
-			
+
 			if (client.getId().equals(recherche)) {
 				System.out.println("Client Trouvé : " + client.toString());
 				return client;
@@ -162,38 +162,39 @@ public class App {
 		System.out.println("La recherche n'a rien donné");
 		return null;
 	}
+
 	public static Utilisateur rechercherUserParLogin(String recherche) {
 
 		for (Client client : currentAgence.getListeClient()) {
-			
+
 			if (client.getLogin().equals(recherche)) {
-				//System.out.println("Client trouvé : " + client.toString());
+				// System.out.println("Client trouvé : " + client.toString());
 				return client;
 			}
 		}
 		for (Conseiller conseiller : currentAgence.getListeConseiller()) {
-			
+
 			if (conseiller.getLogin().equals(recherche)) {
-				//System.out.println("Conseiller trouvé : " + conseiller.toString());
+				// System.out.println("Conseiller trouvé : " + conseiller.toString());
 				return conseiller;
 			}
 		}
-		for (Admin admin: currentAgence.getListeAdmin()) {
-			
+		for (Admin admin : currentAgence.getListeAdmin()) {
+
 			if (admin.getLogin().equals(recherche)) {
-				//System.out.println("Admin trouvé : " + admin.toString());
+				// System.out.println("Admin trouvé : " + admin.toString());
 				return admin;
 			}
 		}
-		
+
 		System.out.println("Login Introuvable");
 		return null;
 	}
-	
+
 	public static Client rechercherClientParLogin(String recherche) {
 
 		for (Client client : currentAgence.getListeClient()) {
-			
+
 			if (client.getLogin().equals(recherche)) {
 				System.out.println("Client Trouvé : " + client.toString());
 				return client;
@@ -202,10 +203,11 @@ public class App {
 		System.out.println("La recherche n'a rien donné");
 		return null;
 	}
+
 	public static Agence rechercherAgenceParId(String recherche, ArrayList<Agence> listeAgences) {
 
-		for (Agence agence: listeAgences) {
-			
+		for (Agence agence : listeAgences) {
+
 			if (agence.getId().equals(recherche)) {
 				System.out.println("Agence Trouvé : " + agence.toString());
 				return agence;
@@ -214,11 +216,11 @@ public class App {
 		System.out.println("La recherche n'a rien donné");
 		return null;
 	}
-	
+
 	public static Client rechercherClientParNom(String recherche) {
 
 		for (Client client : currentAgence.getListeClient()) {
-			
+
 			if (client.getNom().equals(recherche)) {
 				System.out.println("Client Trouvé : " + client.toString());
 				return client;
@@ -227,6 +229,7 @@ public class App {
 		System.out.println("La recherche n'a rien donné");
 		return null;
 	}
+
 	public static Client rechercherClientParCompte(String recherche) {
 
 		for (CompteBancaire compte : currentAgence.getListeComptes()) {
@@ -239,7 +242,6 @@ public class App {
 		return null;
 	}
 
-	
 	public void desactiverCompte(CompteBancaire compte) {
 		compte.setEstActive(false);
 	}

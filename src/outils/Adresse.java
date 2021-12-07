@@ -2,10 +2,10 @@ package outils;
 
 public class Adresse {
 	
-	String numero;
-	String libelle;
-	String codePostal;
-	String ville;
+	private String numero;
+	private String libelle;
+	private String codePostal;
+	private String ville;
 	
 	public Adresse(String numero, String libelle, String codePostal, String ville) {
 		this.numero = numero;
@@ -20,6 +20,10 @@ public class Adresse {
 		this.libelle = RandomNameTable.tableRue[Outils.getRandomNumberInRange(0, RandomNameTable.tableRue.length - 1)];
 		this.codePostal = Outils.genererNumericalId(5);
 		this.ville = RandomNameTable.tableVille[Outils.getRandomNumberInRange(0, RandomNameTable.tableVille.length - 1)];
+	}
+
+	public String getLibelle() {
+		return libelle;
 	}
 
 	@Override

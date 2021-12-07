@@ -62,9 +62,9 @@ public class Main {
 				try {
 					App.setCurrentAgence(listeAgences.get(scanner.nextInt() - 1));
 					/// Debug
-					App.creerCompte(listeAgences.get(0).getListeClient().get(0), scanner);
-					App.creerCompte(listeAgences.get(0).getListeClient().get(0), scanner);
-					App.creerCompte(listeAgences.get(0).getListeClient().get(0), scanner);
+//					App.creerCompte(listeAgences.get(0).getListeClient().get(0), scanner);
+//					App.creerCompte(listeAgences.get(0).getListeClient().get(0), scanner);
+//					App.creerCompte(listeAgences.get(0).getListeClient().get(0), scanner);
 					/// Debug
 					currentMenu = "LOGIN";
 				} catch (IndexOutOfBoundsException e) {
@@ -85,18 +85,20 @@ public class Main {
 					System.out.println("login + " + client.getLogin());
 					System.out.println("mot de passe " + client.getMotDePasse() + "\n");
 				}
-//				System.out.println("DEBUG : Liste des conseillers \n");
-//				for (Conseiller conseiller : App.getCurrentAgence().getListeConseiller()) {
-//					System.out.println(conseiller.getNom() + " " + conseiller.getPrenom());
-//					System.out.println("login : " + conseiller.getLogin());
-//					System.out.println("mot de passe " + conseiller.getMotDePasse() + "\n");
-//				}
-//				System.out.println("DEBUG : Liste des admins \n");
-//				for (Admin admin : App.getCurrentAgence().getListeAdmin()) {
-//					System.out.println(admin.getNom() + " " + admin.getPrenom());
-//					System.out.println("login : " + admin.getLogin());
-//					System.out.println("mot de passe " + admin.getMotDePasse() + "\n");
-//				}
+				
+				System.out.println("DEBUG : Liste des conseillers \n");
+				for (Conseiller conseiller : App.getCurrentAgence().getListeConseiller()) {
+					System.out.println(conseiller.getNom() + " " + conseiller.getPrenom());
+					System.out.println("login : " + conseiller.getLogin());
+					System.out.println("mot de passe " + conseiller.getMotDePasse() + "\n");
+				}
+				System.out.println("DEBUG : Liste des admins \n");
+				for (Admin admin : App.getCurrentAgence().getListeAdmin()) {
+					System.out.println(admin.getNom() + " " + admin.getPrenom());
+					System.out.println("login : " + admin.getLogin());
+					System.out.println("mot de passe " + admin.getMotDePasse() + "\n");
+				}
+				
 				////////////////////////////////////
 
 				MenuLogin.afficher();
@@ -281,7 +283,15 @@ public class Main {
 
 						break;
 					case "6":
-						currentMenu = "SELECTIONCOMPTE";
+						
+						if(currentClient.getNbDeComptes() == 0) {
+							System.out.println("Votre client n'a pas de compte ouvert chez nous");
+						}
+						else {
+							
+							currentMenu = "SELECTIONCOMPTE";
+						}
+						
 
 						break;
 					case "0":
@@ -330,8 +340,8 @@ public class Main {
 
 				if (currentMenu.contentEquals("COMPTE")) {
 
+					System.out.println("Compte en cours : " + App.getCurrentCompte().afficher());
 					MenuCompte.afficher();
-					App.getCurrentCompte().afficher();
 					switch (scanner.next()) {
 
 					/// Imprimer une fiche de compte
@@ -345,26 +355,29 @@ public class Main {
 					case "2":
 						System.out.println("Combien souhaitez vous déposer ?");
 						// TODO sommes positives
-						float montantADeposer = Float.parseFloat(scanner.next());
-						App.getCurrentCompte().setSolde(App.getCurrentCompte().getSolde() + montantADeposer);
-						App.getCurrentCompte().getListeOperations()
-								.add(new Operation("Dêpot", new java.sql.Date(time), montantADeposer, time));
+						App.getCurrentCompte().setSolde(App.getCurrentCompte().getSolde() + Float.parseFloat(scanner.next()));
+						System.out.println("Nouveau solde : " + App.getCurrentCompte().getSolde());
+						
+//						App.getCurrentCompte().getListeOperations()
+//								.add(new Operation("Dêpot", new java.sql.Date(time), montantADeposer, time));
 						break;
 
 					/// Retrait d'argent sur currentCompte
 					case "3":
 						System.out.println("Combien souhaitez vous retirer ?");
 						// TODO sommes positives + compte suffisament alimenté + decouvert autorisé
-						float montantARetirer = Float.parseFloat(scanner.next());
 						try {
 							
-							App.getCurrentCompte().setSolde(App.getCurrentCompte().getSolde() - montantARetirer);
+							App.getCurrentCompte().setSolde(App.getCurrentCompte().getSolde() - Float.parseFloat(scanner.next()));
+							System.out.println("Nouveau solde : " + App.getCurrentCompte().getSolde());
 						}
 						catch(InputMismatchException e) {
 							System.out.println("Format invalide");
 						}
-						App.getCurrentCompte().getListeOperations()
-								.add(new Operation("Retrait", new java.sql.Date(time), montantARetirer, time));
+						
+						//TODO rajouter les opérations
+//						App.getCurrentCompte().getListeOperations()
+//								.add(new Operation("Retrait", new java.sql.Date(time), montantARetirer, time));
 						break;
 					/// Virement vers un compte Cible via l'id du compte
 					case "4":
@@ -373,19 +386,24 @@ public class Main {
 						
 						CompteBancaire compteDestination = App.rechercherCompte(scanner.next());
 						
+						if(compteDestination == null) break;
+						
 						System.out.println("Combien voulez vous virer");
 						float sommeAVirer = Float.parseFloat(scanner.next());
 						
 						App.getCurrentCompte().setSolde(App.getCurrentCompte().getSolde() - sommeAVirer);
 						compteDestination.setSolde(App.getCurrentCompte().getSolde() + sommeAVirer);
-						App.getCurrentCompte().getListeOperations()
-								.add(new Operation("Virement vers le compte " + compteDestination.getId(),
-										new java.sql.Date(time), sommeAVirer, time));
-
+						
+						// TODO Rajoute les opérations + date
+//						App.getCurrentCompte().getListeOperations()
+//								.add(new Operation("Virement vers le compte " + compteDestination.getId(),
+//										new java.sql.Date(time), sommeAVirer, time));
+						break;
 					case "5":
 						for (Operation operation : App.getCurrentCompte().getListeOperations()) {
 							System.out.println(operation.toString());
 						}
+						break;
 					}
 				}
 			}
