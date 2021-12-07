@@ -32,13 +32,12 @@ public class Main {
 		Agence agenceDebug = new Agence();
 		App.setCurrentAgence(agenceDebug);
 
-
-
 		// Debut de la boucle de saisie
 
 		do {
 
 			//// MENU PRINCIPAL todo currentMenu;
+
 			MenuPrincipal.afficher(App.getCurrentAgence());
 
 			switch (scanner.next()) {
@@ -82,12 +81,20 @@ public class Main {
 				break;
 			case "3":
 
-				App.creerCompte(App.getCurrentAgence().getListeClient().get(0), scanner);
-
+				try {
+					App.creerCompte(App.getCurrentAgence().getListeClient().get(0), scanner);
+				} catch (IndexOutOfBoundsException e) {
+					System.out.println("La liste des clients est vide");
+				}
 				break;
 			case "4":
 				System.out.println("Rentrez le numéro de compte");
-				App.rechercherCompte(scanner.next());
+				try {
+					App.rechercherCompte(scanner.next());
+				} catch (NullPointerException e) {
+					System.out.println("La liste des clients est vide");
+				}
+
 				break;
 			case "5":
 

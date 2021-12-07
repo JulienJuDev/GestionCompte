@@ -24,11 +24,16 @@ public class App {
 
 		System.out.println("Nom");
 		String nom = scanner.next();
-		System.out.println("Adresse");
-		Adresse adresse = new Adresse(scanner.next(), scanner.next(), scanner.next(), scanner.next());
-		System.out.println("Numéro d'identification");
-		String id = scanner.next();
-
+		System.out.println("numero de voie");
+		String numero = scanner.next();
+		System.out.println("nom de la voie");
+		String voie = scanner.next();
+		System.out.println("code postal");
+		String codePostal = scanner.next();
+		System.out.println("Ville");
+		String ville= scanner.next();
+		Adresse adresse = new Adresse(numero, voie, codePostal, ville);
+		
 		return new Agence(nom, adresse);
 	}
 
@@ -36,12 +41,25 @@ public class App {
 
 		System.out.println("Nom");
 		String nom = scanner.next();
-		System.out.println("Nom");
+		System.out.println("Prenom");
 		String prenom = scanner.next();
 		System.out.println("Date de Naissance");
-		Date dateNaissance = new Date(scanner.next(), scanner.next(), scanner.next());
-		System.out.println("Adresse");
-		Adresse adresse = new Adresse(scanner.next(), scanner.next(), scanner.next(), scanner.next());
+		System.out.println("Jour");
+		String jour = scanner.next();
+		System.out.println("Mois");
+		String mois = scanner.next();
+		System.out.println("Année");
+		String annee = scanner.next();
+		Date dateNaissance = new Date(jour, mois, annee);
+		System.out.println("numero de voie");
+		String numero = scanner.next();
+		System.out.println("nom de la voie");
+		String voie = scanner.next();
+		System.out.println("code postal");
+		String codePostal = scanner.next();
+		System.out.println("Ville");
+		String ville= scanner.next();
+		Adresse adresse = new Adresse(numero, voie, codePostal, ville);
 		System.out.println("email");
 		String email = scanner.next();
 
@@ -56,11 +74,12 @@ public class App {
 			System.out.println("1 : Compte courant");
 			System.out.println("2 : Livret A");
 			System.out.println("3 : Plan Epargne Logement");
+			
 
 			switch (scanner.nextInt()) {
 			case 1:
-
-				client.ajouterCompte(client.getNbDeComptes(), new CompteCourant(currentAgence, client, 0f, false));
+				System.out.println("Combien voulez vous déposer");
+				client.ajouterCompte(client.getNbDeComptes(), new CompteCourant(currentAgence, client, Float.parseFloat(scanner.next()), false));
 				currentAgence.getListeComptes().add(client.getListeComptes()[client.getNbDeComptes()]);
 				client.setNbDeComptes(client.getNbDeComptes() + 1);
 
@@ -69,16 +88,16 @@ public class App {
 
 				break;
 			case 2:
-
-				client.ajouterCompte(client.getNbDeComptes(), new CompteLivretA(currentAgence, client, 0f, false));
+				System.out.println("Combien voulez vous déposer");
+				client.ajouterCompte(client.getNbDeComptes(), new CompteLivretA(currentAgence, client, Float.parseFloat(scanner.next()), false));
 				currentAgence.getListeComptes().add(client.getListeComptes()[client.getNbDeComptes()]);
 				client.setNbDeComptes(client.getNbDeComptes() + 1);
 				System.out.println("Vous avez ouvert le Livret A : "
 						+ client.getListeComptes()[client.getNbDeComptes() - 1].toString());
 				break;
 			case 3:
-
-				client.ajouterCompte(client.getNbDeComptes(), new ComptePEL(currentAgence, client, 0f, false));
+				System.out.println("Combien voulez vous déposer");
+				client.ajouterCompte(client.getNbDeComptes(), new ComptePEL(currentAgence, client, Float.parseFloat(scanner.next()), false));
 				currentAgence.getListeComptes().add(new ComptePEL(currentAgence, client, 0f, false));
 				client.setNbDeComptes(client.getNbDeComptes() + 1);
 				System.out.println("Vous avez ouvert le PEL : "
@@ -127,6 +146,7 @@ public class App {
 	}
 
 	public static CompteBancaire rechercherCompte(String recherche) {
+		System.out.println("Rentrez un identifiant client");
 
 		for (CompteBancaire compte : currentAgence.getListeComptes()) {
 			if (compte.getId().equals(recherche)) {

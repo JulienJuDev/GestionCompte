@@ -24,10 +24,8 @@ public class Agence {
 	
 	//// Agence() Genere une agence randomisée
 	public Agence() {
-		this.nom = 	RandomNameTable.tableBankPrefix[Outils.getRandomNumberInRange(0, RandomNameTable.tableBankPrefix.length - 1)] + " " +
-					RandomNameTable.tableBankMiddleName[Outils.getRandomNumberInRange(0, RandomNameTable.tableBankMiddleName.length - 1)] + " " +	
-					RandomNameTable.tableBankSuffix[Outils.getRandomNumberInRange(0, RandomNameTable.tableBankSuffix.length - 1)];
 		this.adresse = new Adresse();
+		this.nom = this.adresse.getLibelle();
 	}
 	
 	@Override

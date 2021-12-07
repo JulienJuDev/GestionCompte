@@ -2,11 +2,15 @@ package outils;
 
 public class Adresse {
 	
-	String numero;
-	String libelle;
-	String codePostal;
-	String ville;
+	private String numero;
+	private String libelle;
+	private String codePostal;
+	private String ville;
 	
+	public String getLibelle() {
+		return libelle;
+	}
+
 	public Adresse(String numero, String libelle, String codePostal, String ville) {
 		this.numero = numero;
 		this.libelle = libelle;
