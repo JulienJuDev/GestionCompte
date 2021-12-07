@@ -19,5 +19,4 @@ public class MenuPrincipal extends Menu {
 		}
 		System.out.println("--------------");
 	}
-
 }

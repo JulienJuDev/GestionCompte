@@ -173,14 +173,12 @@ public class Main {
 
 					break;
 				case "7":
-					System.out.println("Rentrez un nom, un identifiant ou un numero de compte du client");
-					System.out.println();
 
 					bufferedWritter.append(App.creerFicheClient(scanner.next()).toString());
 					bufferedWritter.flush();
 
 					break;
-				/// Quitte l'app
+				/// Retour au login
 				case "8":
 
 					System.out.println("Bonne journée.");
@@ -190,6 +188,8 @@ public class Main {
 					break;
 
 				default:
+					System.out.println("Ce n'est pas un choix valide");
+					
 					break;
 				}
 			}

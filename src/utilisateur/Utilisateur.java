@@ -15,6 +15,8 @@ public abstract class Utilisateur {
 	protected Adresse adresse;
 	protected String email;
 	protected boolean estActif = true;
+	
+	
 
 	public Utilisateur(String nom, String prenom, Date dateDeNaissance, Adresse adresse, String email,
 			boolean estActif) {

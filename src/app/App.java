@@ -9,6 +9,7 @@ import utilisateur.*;
 public class App {
 
 	private static Agence currentAgence;
+	private static CompteBancaire currentCompte;
 	private static Utilisateur currentUser;
 	
 	public static Agence creerFakeAgence() {
@@ -96,10 +97,13 @@ public class App {
 		}
 	}
 
-	public static FicheClient creerFicheClient(String clientId) {
-		FicheClient fiche;
-		fiche = new FicheClient(rechercherClientParID(clientId));
-		return fiche;
+	public static FicheClient creerFicheClient(String idClient) {
+		
+		return new FicheClient(rechercherClientParID(idClient));
+	}
+	public static FicheClient creerFicheClient(Client client) {
+		
+		return new FicheClient(client);
 	}
 
 	public static void afficherListeClient() {
@@ -219,6 +223,14 @@ public class App {
 
 	public static void setCurrentUser(Utilisateur currentUser) {
 		App.currentUser = currentUser;
+	}
+
+	public static CompteBancaire getCurrentCompte() {
+		return currentCompte;
+	}
+
+	public static void setCurrentCompte(CompteBancaire currentCompte) {
+		App.currentCompte = currentCompte;
 	}
 
 }

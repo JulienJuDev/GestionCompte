@@ -2,10 +2,11 @@ package utilisateur;
 
 import outils.Adresse;
 import outils.Date;
+import outils.Outils;
 
 public class Conseiller extends Utilisateur {
 
-	
+	String login = Outils.genererLoginConseiller();
 	public Conseiller() {
 		super();
 	}
