@@ -8,8 +8,6 @@ public class MenuCompte extends Menu {
 	public static void afficher() {
 
 		System.out.println("--------------");
-		
-		System.out.println("--------------");
 
 		for (String options : options) {
 			System.out.println(options);

@@ -2,6 +2,7 @@ package main;
 
 import java.io.*;
 import java.util.ArrayList;
+import java.util.InputMismatchException;
 import java.util.Scanner;
 
 import metier.*;
@@ -11,6 +12,7 @@ import app.*;
 public class Main {
 
 	static ArrayList<Agence> listeAgences = new ArrayList<>();
+	static long time = System.currentTimeMillis();
 
 	public static void main(String[] args) throws IOException {
 
@@ -31,7 +33,8 @@ public class Main {
 
 		listeAgences.get(0).getListeClient().add(new Client(listeAgences.get(0)));
 		listeAgences.get(0).getListeClient().add(new Client(listeAgences.get(0)));
-		listeAgences.get(1).getListeClient().add(new Client(listeAgences.get(1)));
+		listeAgences.get(0).getListeClient().add(new Client(listeAgences.get(0)));
+
 		listeAgences.get(1).getListeClient().add(new Client(listeAgences.get(1)));
 
 		listeAgences.get(0).getListeConseiller().add(new Conseiller(listeAgences.get(0)));
@@ -58,6 +61,11 @@ public class Main {
 
 				try {
 					App.setCurrentAgence(listeAgences.get(scanner.nextInt() - 1));
+					/// Debug
+					App.creerCompte(listeAgences.get(0).getListeClient().get(0), scanner);
+					App.creerCompte(listeAgences.get(0).getListeClient().get(0), scanner);
+					App.creerCompte(listeAgences.get(0).getListeClient().get(0), scanner);
+					/// Debug
 					currentMenu = "LOGIN";
 				} catch (IndexOutOfBoundsException e) {
 					System.out.println("Choix invalide");
@@ -75,20 +83,20 @@ public class Main {
 				for (Client client : App.getCurrentAgence().getListeClient()) {
 					System.out.println(client.getNom() + " " + client.getPrenom());
 					System.out.println("login + " + client.getLogin());
-					System.out.println("mot de passe " + client.getMotDePasse());
+					System.out.println("mot de passe " + client.getMotDePasse() + "\n");
 				}
-				System.out.println("DEBUG : Liste des conseillers \n");
-				for (Conseiller conseiller : App.getCurrentAgence().getListeConseiller()) {
-					System.out.println(conseiller.getNom() + " " + conseiller.getPrenom());
-					System.out.println("login : " + conseiller.getLogin());
-					System.out.println("mot de passe " + conseiller.getMotDePasse());
-				}
-				System.out.println("DEBUG : Liste des admins \n");
-				for (Admin admin : App.getCurrentAgence().getListeAdmin()) {
-					System.out.println(admin.getNom() + " " + admin.getPrenom());
-					System.out.println("login : " + admin.getLogin());
-					System.out.println("mot de passe " + admin.getMotDePasse());
-				}
+//				System.out.println("DEBUG : Liste des conseillers \n");
+//				for (Conseiller conseiller : App.getCurrentAgence().getListeConseiller()) {
+//					System.out.println(conseiller.getNom() + " " + conseiller.getPrenom());
+//					System.out.println("login : " + conseiller.getLogin());
+//					System.out.println("mot de passe " + conseiller.getMotDePasse() + "\n");
+//				}
+//				System.out.println("DEBUG : Liste des admins \n");
+//				for (Admin admin : App.getCurrentAgence().getListeAdmin()) {
+//					System.out.println(admin.getNom() + " " + admin.getPrenom());
+//					System.out.println("login : " + admin.getLogin());
+//					System.out.println("mot de passe " + admin.getMotDePasse() + "\n");
+//				}
 				////////////////////////////////////
 
 				MenuLogin.afficher();
@@ -122,8 +130,7 @@ public class Main {
 					break;
 				case "2":
 
-					// TODO Creer un nouvel utilisateur via login
-					currentMenu = "AGENCE";
+					currentMenu = "SELECTIONCOMPTE";
 					break;
 
 				case "3":
@@ -180,6 +187,7 @@ public class Main {
 					currentMenu = "SELECTIONCOMPTE";
 
 					/// Retour au login
+					break;
 				case "0":
 
 					System.out.println("Bonne journée.");
@@ -289,72 +297,103 @@ public class Main {
 						break;
 					}
 
-					System.out.println(currentClient.toString());
+					// System.out.println(currentClient.toString());
 				}
-				//// MENU SELECTION COMPTE
+			}
+			//// MENU SELECTION COMPTE
 
-				if (currentMenu.contentEquals("SELECTIONCOMPTE")) {
-					MenuSelectionCompte.afficher(currentClient);
+			if (currentMenu.contentEquals("SELECTIONCOMPTE")) {
+				MenuSelectionCompte.afficher(currentClient);
 
-					if (currentClient.getNbDeComptes() > 0) {
+				if (currentClient.getNbDeComptes() > 0) {
 
-						for (int i = 0; i < currentClient.getNbDeComptes(); i++) {
-							System.out.println((i + 1) + ". " + currentClient.getListeComptes()[i]);
-						}
-						try {
-							App.setCurrentCompte(currentClient.getListeComptes()[scanner.nextInt() + 1]);
-							currentMenu = "COMPTE";
-
-						} catch (IndexOutOfBoundsException e) {
-							System.out.println("Choix invalide");
-						}
-
-					} else {
-						System.out.println("Il n'y a pas de compte actifs.");
+					for (int i = 0; i < currentClient.getNbDeComptes(); i++) {
+						System.out.println((i + 1) + ". " + currentClient.getListeComptes()[i].afficher());
 					}
-					break;
+					try {
+						System.out.println("Saisissez le numéro de compte");
+						int index = scanner.nextInt();
+						App.setCurrentCompte(currentClient.getListeComptes()[index - 1]);
+
+						currentMenu = "COMPTE";
+					}
+
+					catch (IndexOutOfBoundsException e) {
+						System.out.println("Choix invalide");
+					}
+
+				} else {
+					System.out.println("Il n'y a pas de compte actifs.");
 
 				}
 				//// MENU COMPTE
 
-				if (currentMenu.contentEquals("SELECTIONCOMPTE")) {
+				if (currentMenu.contentEquals("COMPTE")) {
 
 					MenuCompte.afficher();
 					App.getCurrentCompte().afficher();
 					switch (scanner.next()) {
 
+					/// Imprimer une fiche de compte
 					case "1":
-						bufferedWritter.append(new FicheClient(currentClient).toString());
+						//bufferedWritter.append(new FicheClient(currentClient).toString());
+						System.out.println(new FicheClient(currentClient).toString());
+						
 						break;
 
+					/// Depot d'argent sur currentCompte
 					case "2":
 						System.out.println("Combien souhaitez vous déposer ?");
-						//TODO sommes positives
-						App.getCurrentCompte().setSolde(App.getCurrentCompte().getSolde() + scanner.nextFloat());
+						// TODO sommes positives
+						float montantADeposer = Float.parseFloat(scanner.next());
+						App.getCurrentCompte().setSolde(App.getCurrentCompte().getSolde() + montantADeposer);
+						App.getCurrentCompte().getListeOperations()
+								.add(new Operation("Dêpot", new java.sql.Date(time), montantADeposer, time));
 						break;
+
+					/// Retrait d'argent sur currentCompte
 					case "3":
 						System.out.println("Combien souhaitez vous retirer ?");
-						//TODO sommes positives + compte suffisament alimenté + decouvert autorisé
-
-						App.getCurrentCompte().setSolde(App.getCurrentCompte().getSolde() - scanner.nextFloat());
+						// TODO sommes positives + compte suffisament alimenté + decouvert autorisé
+						float montantARetirer = Float.parseFloat(scanner.next());
+						try {
+							
+							App.getCurrentCompte().setSolde(App.getCurrentCompte().getSolde() - montantARetirer);
+						}
+						catch(InputMismatchException e) {
+							System.out.println("Format invalide");
+						}
+						App.getCurrentCompte().getListeOperations()
+								.add(new Operation("Retrait", new java.sql.Date(time), montantARetirer, time));
 						break;
-						
+					/// Virement vers un compte Cible via l'id du compte
 					case "4":
 						System.out.println("Rentrez l'id du compte de destination");
-						//TODO sommes positives + compte suffisament alimenté + decouvert autorisé
+						// TODO sommes positives + compte suffisament alimenté + decouvert autorisé
 						
 						CompteBancaire compteDestination = App.rechercherCompte(scanner.next());
-						float sommeAVirer = scanner.nextFloat();
+						
+						System.out.println("Combien voulez vous virer");
+						float sommeAVirer = Float.parseFloat(scanner.next());
+						
 						App.getCurrentCompte().setSolde(App.getCurrentCompte().getSolde() - sommeAVirer);
 						compteDestination.setSolde(App.getCurrentCompte().getSolde() + sommeAVirer);
+						App.getCurrentCompte().getListeOperations()
+								.add(new Operation("Virement vers le compte " + compteDestination.getId(),
+										new java.sql.Date(time), sommeAVirer, time));
+
+					case "5":
+						for (Operation operation : App.getCurrentCompte().getListeOperations()) {
+							System.out.println(operation.toString());
+						}
 					}
 				}
 			}
+
 		} while (!saisieTermine);
 
 		scanner.close();
 		bufferedWritter.close();
 		bufferedReader.close();
-
 	}
 }

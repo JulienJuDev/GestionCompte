@@ -2,7 +2,7 @@ package utilisateur;
 
 import metier.Agence;
 import outils.Adresse;
-import outils.Date;
+import outils.DateNaissance;
 import outils.Outils;
 import outils.RandomNameTable;
 
@@ -13,7 +13,7 @@ public abstract class Utilisateur {
 	protected String id = Outils.genererId();
 	protected String nom;
 	protected String prenom;
-	protected Date dateDeNaissance;
+	protected DateNaissance dateDeNaissance;
 	protected Adresse adresse;
 	protected String email;
 	protected String profil;
@@ -23,7 +23,7 @@ public abstract class Utilisateur {
 	
 
 
-	public Utilisateur(String nom, String prenom, Date dateDeNaissance, Adresse adresse, String email,
+	public Utilisateur(String nom, String prenom, DateNaissance dateDeNaissance, Adresse adresse, String email,
 			boolean estActif, Agence agence) {
 
 		this.nom = nom;
@@ -40,7 +40,7 @@ public abstract class Utilisateur {
 		this.nom = RandomNameTable.tableNom[Outils.getRandomNumberInRange(0, RandomNameTable.tableNom.length - 1)];
 		this.prenom = RandomNameTable.tablePrenom[Outils.getRandomNumberInRange(0,
 				RandomNameTable.tablePrenom.length - 1)];
-		this.dateDeNaissance = new Date(String.valueOf(Outils.getRandomNumberInRange(1, 30)),
+		this.dateDeNaissance = new DateNaissance(String.valueOf(Outils.getRandomNumberInRange(1, 30)),
 				String.valueOf(Outils.getRandomNumberInRange(0, 12)),
 				String.valueOf(Outils.getRandomNumberInRange(1950, 2002)));
 		this.adresse = new Adresse();
@@ -100,7 +100,7 @@ public abstract class Utilisateur {
 		return prenom;
 	}
 
-	public Date getDateDeNaissance() {
+	public DateNaissance getDateDeNaissance() {
 		return dateDeNaissance;
 	}
 	@Override

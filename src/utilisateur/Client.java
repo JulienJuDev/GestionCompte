@@ -9,7 +9,7 @@ public class Client extends Utilisateur {
 	private int nbDeComptes = 0;
 	private CompteBancaire[] listeComptes = new CompteBancaire[3];
 
-	public Client(String nom, String prenom, Date dateDeNaissance, Adresse adresse, String email, boolean estActif, Agence agence) {
+	public Client(String nom, String prenom, DateNaissance dateDeNaissance, Adresse adresse, String email, boolean estActif, Agence agence) {
 		super(nom, prenom, dateDeNaissance, adresse, email, estActif, agence);
 
 		this.login = Outils.genererLoginClient();

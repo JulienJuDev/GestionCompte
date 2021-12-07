@@ -19,9 +19,10 @@ public class FicheClient {
 				"Numéro de Compte \t \t \t Solde" + "\n" +
 				"____________________\n");
 				
-				for (CompteBancaire compte : client.getListeComptes()) {
-					result += compte.getId() + " \t \t \t " + compte.solde + " \t \t \t ";
-					if(compte.solde >= 0f) result += ":)"; else { result += ":(";}
+		
+				for (int i = 0; i < client.getNbDeComptes(); i++) {
+					result += client.getListeComptes()[i].getId() + " \t \t \t " + client.getListeComptes()[i].getSolde() + " \t \t \t ";
+					if(client.getListeComptes()[i].getSolde() >= 0f) result += ":)"; else { result += ":(";}
 					result += "\n";
 				}
 	}

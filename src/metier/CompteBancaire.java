@@ -1,5 +1,7 @@
 package metier;
 
+import java.util.ArrayList;
+
 import outils.Outils;
 import utilisateur.Client;
 
@@ -12,6 +14,9 @@ public abstract class CompteBancaire {
 	protected boolean decouvertAutorise;
 	protected boolean estActif = true;
 	protected String type;
+	
+	protected ArrayList<Operation> listeOperations = new ArrayList<>();
+
 
 	public CompteBancaire(Agence agence, Client client, float solde, boolean decouvertAutorise) {
 
@@ -62,6 +67,14 @@ public abstract class CompteBancaire {
 		return estActif;
 	}
 
+	public ArrayList<Operation> getListeOperations() {
+		return listeOperations;
+	}
+	
+	public void setListeOperations(ArrayList<Operation> listeOperations) {
+		this.listeOperations = listeOperations;
+	}
+	
 	@Override
 	public String toString() {
 		return "Compte numero #" + id + "\n" + agence + client + "\n" + "solde : " + solde;

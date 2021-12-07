@@ -42,7 +42,7 @@ public class App {
 		System.out.println("Prenom");
 		String prenom = scanner.next();
 		System.out.println("Date de Naissance");
-		Date dateNaissance = new Date(scanner.next(), scanner.next(), scanner.next());
+		DateNaissance dateNaissance = new DateNaissance(scanner.next(), scanner.next(), scanner.next());
 		System.out.println("Adresse");
 		Adresse adresse = new Adresse(scanner.next(), scanner.next(), scanner.next(), scanner.next());
 		System.out.println("email");
@@ -68,7 +68,7 @@ public class App {
 				client.setNbDeComptes(client.getNbDeComptes() + 1);
 
 				System.out.println("Vous avez ouvert le compte courant : "
-						+ client.getListeComptes()[client.getNbDeComptes() - 1].toString());
+						+ client.getListeComptes()[client.getNbDeComptes() - 1].afficher());
 
 				break;
 			case 2:
@@ -77,7 +77,7 @@ public class App {
 				currentAgence.getListeComptes().add(client.getListeComptes()[client.getNbDeComptes()]);
 				client.setNbDeComptes(client.getNbDeComptes() + 1);
 				System.out.println("Vous avez ouvert le Livret A : "
-						+ client.getListeComptes()[client.getNbDeComptes() - 1].toString());
+						+ client.getListeComptes()[client.getNbDeComptes() - 1].afficher());
 				break;
 			case 3:
 
@@ -85,7 +85,7 @@ public class App {
 				currentAgence.getListeComptes().add(new ComptePEL(currentAgence, client, 0f, false));
 				client.setNbDeComptes(client.getNbDeComptes() + 1);
 				System.out.println("Vous avez ouvert le PEL : "
-						+ client.getListeComptes()[client.getNbDeComptes() - 1].toString());
+						+ client.getListeComptes()[client.getNbDeComptes() - 1].afficher());
 				break;
 			default:
 

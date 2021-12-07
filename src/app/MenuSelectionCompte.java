@@ -10,9 +10,8 @@ public class MenuSelectionCompte extends Menu {
 
 		System.out.println("--------------");
 		System.out.println(titre);
-		System.out.println("--------------");
 
-		App.afficherComptesClient(client);
+		//App.afficherComptesClient(client);
 		
 		System.out.println("--------------");
 	}

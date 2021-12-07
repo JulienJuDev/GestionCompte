@@ -1,12 +1,15 @@
 package outils;
 
-public class Date {
 
+public class DateNaissance {
+
+
+	
 	String jour;
 	String mois;
 	String annee;
 	
-	public Date(String jour, String mois, String annee) {
+	public DateNaissance(String jour, String mois, String annee) {
 		this.jour = jour;
 		this.mois = mois;
 		this.annee = annee;
